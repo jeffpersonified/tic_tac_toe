@@ -1,4 +1,4 @@
-# $ coffee --compile --output js/ coffee/
+# $ coffee --bare -o js/ -cw coffee/ 
 # 
 # var g = new Game()
 

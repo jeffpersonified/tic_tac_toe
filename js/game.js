@@ -53,8 +53,9 @@ Game = (function() {
     if (this.side === 'X') {
       this.listenForMove();
     }
+    console.log("Game.changeTurn: bot (" + this.bot + ") is about to calc move");
     if (this.side === 'O') {
-      return this.listenForMove();
+      return this.bot.calculateMove(this.board);
     }
   };
 

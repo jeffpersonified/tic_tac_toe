@@ -33,8 +33,7 @@ class Game
   concludeTurn: ->
     @result = checkGameOver @board
     console.log "Result is #{@result}"
-    # # This keeps breaking and don't know why
-    # # 
+
     if @result is 'X' or @result is 'O' or @result is 'tie'
       console.log "Game.concludeTurn: game is over, heading into gameOver"
       return @gameOver @result 
@@ -46,9 +45,9 @@ class Game
     @listenForMove() if @side is 'X'
     # only for debugging rules
     # 
-    @listenForMove() if @side is 'O'
-    # console.log @bot
-    # @bot.calculateMove @board if @side is 'O'     
+    # @listenForMove() if @side is 'O'
+    console.log "Game.changeTurn: bot (#{@bot}) is about to calc move"
+    @bot.calculateMove @board if @side is 'O'
 
   gameOver: (winner) ->
     console.log "Game.concludeTurn: winner is #{@result}"
@@ -76,6 +75,5 @@ class Game
 g = new Game()
 # g.new()
 # g.firstTurn()
-
 
 

@@ -13,20 +13,21 @@ Bot = (function() {
   Bot.prototype.calculateMove = function(board) {
     var isBoardEmpty, move;
     isBoardEmpty = function(board) {
-      var column, row, _i, _j, _len, _len1;
+      var space, _i, _len;
+      console.log("Bot.calculateMove: board is " + board);
       for (_i = 0, _len = board.length; _i < _len; _i++) {
-        column = board[_i];
-        for (_j = 0, _len1 = column.length; _j < _len1; _j++) {
-          row = column[_j];
-          if (row !== '*') {
-            return false;
-          }
+        space = board[_i];
+        console.log("Bot.calculateMove: checking if space " + space + " is empty");
+        if (typeof space === "string") {
+          "Bot.calculateMove: board isn't empty";
+
+          return false;
         }
       }
       return true;
     };
     if (isBoardEmpty(board)) {
-      return 5;
+      return 4;
     }
     console.log("Bot.calculateMove with " + board);
     console.log("about to call Bot.move");

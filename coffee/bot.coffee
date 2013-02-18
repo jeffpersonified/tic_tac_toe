@@ -20,11 +20,15 @@ class Bot
   calculateMove: (board) ->
   # IMPLEMENT TO HAVE BOT PLAY FIRST OR ITSELF
     isBoardEmpty = (board) ->
-      for column in board
-        for row in column
-          return false if row isnt '*'
+      console.log "Bot.calculateMove: board is #{board}"
+      for space in board
+        console.log "Bot.calculateMove: checking if space #{space} is empty"
+        if typeof space is "string" 
+          "Bot.calculateMove: board isn't empty"
+          return false
       return true
-    return 5 if isBoardEmpty(board)
+
+    return 4 if isBoardEmpty(board)
     console.log "Bot.calculateMove with #{board}"
 
     # boardCopy = clone board
@@ -87,5 +91,5 @@ class Bot
 # minimax = (player, board) ->
 
 # minimax (player, board) ->
-# 	winner if gameOver(currentPosition)
+#   winner if gameOver(currentPosition)
 

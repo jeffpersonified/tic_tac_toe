@@ -21,11 +21,12 @@ checkGameOver = function(board) {
       console.log("checkGameOver: opportunities decreased to " + opportunities);
     }
     if ((check(firstPlay) === (_ref = check(secondPlay)) && _ref === check(thirdPlay))) {
+      alert("Winner is " + (board.getSpace(firstPlay)));
       return result = board.getSpace(firstPlay);
     }
     if (opportunities === 0) {
-      return result = "tie";
+      alert("tie");
+      return "tie";
     }
   }
-  return result;
 };

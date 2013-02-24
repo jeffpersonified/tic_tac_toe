@@ -26,14 +26,12 @@ checkGameOver = (board) ->
       console.log "checkGameOver: opportunities decreased to #{opportunities}"
 
     if check(firstPlay) is check(secondPlay) is check(thirdPlay)
-      # alert "Winner is #{board.getSpace(firstPlay)}"
+      alert "Winner is #{board.getSpace(firstPlay)}"
       return result = board.getSpace(firstPlay)
-    
+        
     if opportunities is 0
-      # alert "tie"
-      return result = "tie"
-
-  return result
+      alert "tie"
+      return "tie"
 
     # else
     #   return "YO!"
@@ -55,4 +53,3 @@ checkGameOver = (board) ->
 #                 [[0, 2], [1, 1], [2, 0]]] # Bottom-left to top-right.
 #     for row in patterns
 #       for column in patterns
-#         

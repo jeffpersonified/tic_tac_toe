@@ -7,6 +7,7 @@ class Bot
 
 
   calculateMove: (board) ->
+    debugger
 
     console.log "Bot.calculateMove with #{board.getSpaces()}"
     
@@ -22,7 +23,7 @@ class Bot
 
     return 4 if isBoardEmpty(board)
 
-    boardCopy = jQuery.extend(true, {}, board) # this copies the board 
+    boardCopy = jQuery.extend({}, board) # this copies the board 
                                                # but still refers to the same spaces 
                                                # in the copy
     copiedSpaces =  boardCopy.getSpaces()

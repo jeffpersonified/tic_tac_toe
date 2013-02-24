@@ -11,6 +11,7 @@ Bot = (function() {
   }
 
   Bot.prototype.calculateMove = function(board) {
+    debugger;
     var boardCopy, copiedSpaces, isBoardEmpty, move;
     console.log("Bot.calculateMove with " + (board.getSpaces()));
     isBoardEmpty = function(board) {
@@ -30,7 +31,7 @@ Bot = (function() {
     if (isBoardEmpty(board)) {
       return 4;
     }
-    boardCopy = jQuery.extend(true, {}, board);
+    boardCopy = jQuery.extend({}, board);
     copiedSpaces = boardCopy.getSpaces();
     console.log("copiedSpaces are: " + copiedSpaces);
     console.log("about to call Bot.move");

@@ -12,10 +12,10 @@ Bot = (function() {
 
   Bot.prototype.calculateMove = function(board) {
     var boardCopy, copiedSpaces, isBoardEmpty, move;
-    console.log("Bot.calculateMove with " + (board.getSpaces()));
+    console.log("Bot.calculateMove with " + board);
     isBoardEmpty = function(board) {
       var boardSpaces, space, _i, _len;
-      console.log("Bot.calculateMove: board is " + (board.getSpaces()));
+      console.log("Bot.calculateMove: board is " + board);
       boardSpaces = board.getSpaces();
       for (_i = 0, _len = boardSpaces.length; _i < _len; _i++) {
         space = boardSpaces[_i];
@@ -40,7 +40,8 @@ Bot = (function() {
 
   Bot.prototype.search = function(board, side, depth, alpha, beta) {
     var bestMove, move, moves, otherside, potentialAlpha, value, _i, _len;
-    console.log("Bot.search: board is " + (board.getSpaces()));
+    alert("in Bot.search");
+    console.log("Bot.search: board is " + board);
     console.log("Bot.search: side is " + side);
     console.log("Bot.search: depth is " + depth);
     value = this.nodeValue(board, side);
@@ -62,13 +63,11 @@ Bot = (function() {
     for (_i = 0, _len = moves.length; _i < _len; _i++) {
       move = moves[_i];
       console.log("Bot.search: " + move + " in moves");
-      console.log("(the above ought to increment)");
       this.makeMove(board, move, side);
-      console.log("before calling potential alph board is " + (board.getSpaces()));
       potentialAlpha = -this.search(board, otherside, depth + 1, -beta, -alpha);
       console.log("Bot.search: potentialAlpha");
       this.undoMove(board, move);
-      console.log("Bot.search: undoMove, board is now " + (board.getSpaces()));
+      console.log("Bot.search: undoMove");
       if (beta <= alpha) {
         break;
       }
@@ -79,6 +78,7 @@ Bot = (function() {
         }
       }
     }
+    debugger;
     if (depth !== 0) {
       return alpha;
     } else {
@@ -88,27 +88,24 @@ Bot = (function() {
 
   Bot.prototype.nodeValue = function(board, side) {
     var gameResult;
-    console.log("Bot.nodeValue: board is " + (board.getSpaces()) + " and side is " + side);
+    console.log("Bot.nodeValue: board is " + board + " and side is " + side);
     gameResult = checkGameOver(board);
     console.log("Bot.nodeValue: gameResult is " + gameResult);
     if (gameResult === false || 'tie') {
-      console.log("returning 0 for nodeValue");
       return 0;
     } else if (gameResult === side) {
-      console.log("returning " + this.infinity + " for nodeValue");
       return this.infinity;
     } else {
-      console.log("returning " + (-this.infinity) + " for nodeValue");
       return -this.infinity;
     }
   };
 
   Bot.prototype.generateMoves = function(board) {
     var boardSpaces, moves, space, _i, _len;
-    console.log("Bot.generateMoves: board is " + (board.getSpaces()));
+    console.log("Bot.generateMoves: board is " + board);
     moves = [];
     boardSpaces = board.getSpaces();
-    console.log("Bot.generateMoves: got boardSpaces " + boardSpaces);
+    console.log("Bot.generateMoves: got boardSpaces");
     for (_i = 0, _len = boardSpaces.length; _i < _len; _i++) {
       space = boardSpaces[_i];
       if (typeof space === "number") {
@@ -120,19 +117,11 @@ Bot = (function() {
   };
 
   Bot.prototype.makeMove = function(board, move, side) {
-    console.log("makeMove: board before makeMove with move " + move + " is " + (board.getSpaces()));
-    board.setSpace(move, side);
-    console.log("makeMove: board after makeMove is " + (board.getSpaces()));
-    return board;
+    return board[move] = side;
   };
 
-  Bot.prototype.undoMove = function(board, move) {
-    var boardSpaces;
-    console.log(board.getSpaces());
-    boardSpaces = board.getSpaces();
-    board.setSpace(move, move);
-    console.log(board.getSpaces());
-    return board;
+  Bot.prototype.undoMove = function(grid, move) {
+    return board[move] = move;
   };
 
   return Bot;

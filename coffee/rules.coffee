@@ -26,15 +26,14 @@ checkGameOver = (board) ->
       console.log "checkGameOver: opportunities decreased to #{opportunities}"
 
     if check(firstPlay) is check(secondPlay) is check(thirdPlay)
-      alert "Winner is #{board.getSpace(firstPlay)}"
+      # alert "Winner is #{board.getSpace(firstPlay)}"
       return result = board.getSpace(firstPlay)
     
-    # EVAL AFTER WIN
-    # this isn't working either
-    
     if opportunities is 0
-      alert "tie"
-      return "tie"
+      # alert "tie"
+      return result = "tie"
+
+  return result
 
     # else
     #   return "YO!"

@@ -7,9 +7,7 @@ class Game
     @board = new Board()
 
   new: ->
-    console.log "called new"
     @board.reset()
-    console.log 
     @result = false
     @side = "X"
     @bot = new Bot "O"
@@ -20,13 +18,13 @@ class Game
     @makeMove space
 
   makeMove: (space) =>
+    # debugger
+    alert "Move was at #{space}"
     @board.setSpace(space, @side)
     @moves += 1
     @concludeTurn()
 
   listenForMove: ->
-    # only for debugging rules
-    # 
     space = prompt "What space are you playing?"
     @makeMove space
 
@@ -35,7 +33,7 @@ class Game
     console.log "Result is #{@result}"
 
     if @result is 'X' or @result is 'O' or @result is 'tie'
-      console.log "Game.concludeTurn: game is over, heading into gameOver"
+      alert "Game.concludeTurn: game is over, heading into gameOver"
       return @gameOver @result 
     @changeTurn()
 
@@ -47,7 +45,13 @@ class Game
     # 
     # @listenForMove() if @side is 'O'
     console.log "Game.changeTurn: bot (#{@bot}) is about to calc move"
-    @bot.calculateMove @board if @side is 'O'
+    @makeMove(@bot.calculateMove @board) if @side is 'O'
+    
+    # placement = @bot.calculateMove @board if @side is 'O'
+    # console.log placement
+    # @board.setSpace(placement, 'O') # give a secondary argument to makeMove and remove
+    # @concludeTurn()
+
 
   gameOver: (winner) ->
     console.log "Game.concludeTurn: winner is #{@result}"

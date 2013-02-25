@@ -31,7 +31,9 @@ checkGameOver = (board) ->
         
     if opportunities is 0
       alert "tie"
-      return "tie"
+      return result = "tie"
+
+  return result
 
     # else
     #   return "YO!"

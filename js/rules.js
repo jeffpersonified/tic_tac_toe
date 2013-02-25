@@ -26,7 +26,8 @@ checkGameOver = function(board) {
     }
     if (opportunities === 0) {
       alert("tie");
-      return "tie";
+      return result = "tie";
     }
   }
+  return result;
 };

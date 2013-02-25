@@ -13,6 +13,9 @@ class Board
     @spaces[index] = side
     $('#output').text(@spaces)
 
+  setSpaces: (array) ->
+    @spaces = array
+
   getSpace: (index) ->
     @spaces[index]
 

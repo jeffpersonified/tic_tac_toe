@@ -7,8 +7,6 @@ class Bot
 
 
   calculateMove: (board) ->
-    debugger
-
     console.log "Bot.calculateMove with #{board.getSpaces()}"
     
     isBoardEmpty = (board) -> # works
@@ -26,17 +24,16 @@ class Bot
     boardCopy = jQuery.extend({}, board) # this copies the board 
                                                # but still refers to the same spaces 
                                                # in the copy
-    copiedSpaces =  boardCopy.getSpaces()
-    console.log "copiedSpaces are: #{copiedSpaces}"
-    # 
+
     console.log "about to call Bot.move"
-    move = @search(boardCopy, @side, 0, -@infinity, +@infinity) # breaking in search i think
+    move = @search(boardCopy, @side, 0, -@infinity, +@infinity)
 
     # if move is 0
     #   throw 'ArtificialIntelligence.calculateMove: draw game, no move found.'
     return move
 
   search: (board, side, depth, alpha, beta)->
+    # debugger
     # alert "in Bot.search"
     console.log "Bot.search: board is #{board.getSpaces()}"
     console.log "Bot.search: side is #{side}"
@@ -62,8 +59,15 @@ class Bot
     for move in moves
       console.log "Bot.search: #{move} in moves" 
       console.log "(the above ought to increment)"
-      @makeMove(board, move, side)
+      boardSpaces = board.getSpaces()
+      # boardCopy = jQuery.extend({}, board)  # this copies the board but 
+      #                                       # but maintains changes the original board as well
+      boardCopy = new Board()
+      boardCopy.setSpaces(boardSpaces) # This could be rolled into a optional argument 
+                                       # on the board constructor
+      console.log boardCopy
 
+      @makeMove(boardCopy, move, side)
       console.log "before calling potential alph board is #{board.getSpaces()}"
       potentialAlpha = -@search(board, otherside, depth + 1, -beta, -alpha)
       console.log "Bot.search: potentialAlpha"
@@ -79,11 +83,11 @@ class Bot
     if depth isnt 0 then return alpha else return bestMove
 
   nodeValue: (board, side) ->
+    # debugger
     console.log "Bot.nodeValue: board is #{board.getSpaces()} and side is #{side}"
     gameResult = checkGameOver board
-    # problems here; always evaluating gameresult at undefined
     console.log "Bot.nodeValue: gameResult is #{gameResult}"
-    if gameResult is false or 'tie'
+    if gameResult is false or gameResult is 'tie'
       console.log "returning 0 for nodeValue"
       return 0 
     else if gameResult is side
@@ -97,7 +101,6 @@ class Bot
     console.log "Bot.generateMoves: board is #{board.getSpaces()}"
     moves = []
     boardSpaces = board.getSpaces()
-    console.log "Bot.generateMoves: got boardSpaces #{boardSpaces}"
 
     for space in boardSpaces
       if typeof space is "number"

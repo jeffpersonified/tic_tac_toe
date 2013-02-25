@@ -10,9 +10,7 @@ Game = (function() {
   }
 
   Game.prototype["new"] = function() {
-    console.log("called new");
     this.board.reset();
-    console.log;
     this.result = false;
     this.side = "X";
     this.bot = new Bot("O");
@@ -26,6 +24,7 @@ Game = (function() {
   };
 
   Game.prototype.makeMove = function(space) {
+    alert("Move was at " + space);
     this.board.setSpace(space, this.side);
     this.moves += 1;
     return this.concludeTurn();
@@ -41,7 +40,7 @@ Game = (function() {
     this.result = checkGameOver(this.board);
     console.log("Result is " + this.result);
     if (this.result === 'X' || this.result === 'O' || this.result === 'tie') {
-      console.log("Game.concludeTurn: game is over, heading into gameOver");
+      alert("Game.concludeTurn: game is over, heading into gameOver");
       return this.gameOver(this.result);
     }
     return this.changeTurn();
@@ -55,7 +54,7 @@ Game = (function() {
     }
     console.log("Game.changeTurn: bot (" + this.bot + ") is about to calc move");
     if (this.side === 'O') {
-      return this.bot.calculateMove(this.board);
+      return this.makeMove(this.bot.calculateMove(this.board));
     }
   };
 

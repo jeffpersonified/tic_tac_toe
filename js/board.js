@@ -19,6 +19,10 @@ Board = (function() {
     return $('#output').text(this.spaces);
   };
 
+  Board.prototype.setSpaces = function(array) {
+    return this.spaces = array;
+  };
+
   Board.prototype.getSpace = function(index) {
     return this.spaces[index];
   };

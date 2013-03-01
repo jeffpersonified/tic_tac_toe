@@ -5,6 +5,9 @@
 class Game
   constructor: ->
     @board = new Board()
+    console.log "created a new Game!"
+    $('#output').text(@board.getSpaces())
+
 
   new: ->
     @board.reset()

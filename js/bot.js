@@ -12,6 +12,7 @@ Bot = (function() {
 
   Bot.prototype.calculateMove = function(board) {
     var boardCopy, isBoardEmpty, move;
+    boardCopy = jQuery.extend({}, board);
     console.log("Bot.calculateMove with " + (board.getSpaces()));
     isBoardEmpty = function(board) {
       var boardSpaces, space, _i, _len;
@@ -30,20 +31,14 @@ Bot = (function() {
     if (isBoardEmpty(board)) {
       return 4;
     }
-    boardCopy = jQuery.extend({}, board);
     console.log("about to call Bot.move");
     move = this.search(boardCopy, this.side, 0, -this.infinity, +this.infinity);
     return move;
   };
 
   Bot.prototype.search = function(board, side, depth, alpha, beta) {
-    var bestMove, boardCopy, boardSpaces, move, moves, otherside, potentialAlpha, value, _i, _len;
-    console.log("Bot.search: board is " + (board.getSpaces()));
-    console.log("Bot.search: side is " + side);
-    console.log("Bot.search: depth is " + depth);
+    var boardCopy, boardSpaces, move, moves, otherside, score, value, _i, _j, _len, _len1;
     value = this.nodeValue(board, side);
-    console.log("Bot.search: depth is " + depth);
-    console.log("Bot.search: value is " + value);
     if (value !== 0) {
       if (value > 0) {
         return value - depth;
@@ -51,40 +46,37 @@ Bot = (function() {
         return value + depth;
       }
     }
-    moves = this.generateMoves(board);
-    if (moves.length === 0) {
-      return value;
-    }
     otherside = side === 'X' ? 'O' : 'X';
-    console.log("Bot.search: otherside is " + otherside);
-    for (_i = 0, _len = moves.length; _i < _len; _i++) {
-      move = moves[_i];
-      console.log("Bot.search: " + move + " in moves");
-      console.log("(the above ought to increment)");
-      boardSpaces = board.getSpaces();
-      boardCopy = new Board();
-      boardCopy.setSpaces(boardSpaces);
-      console.log(boardCopy);
-      this.makeMove(boardCopy, move, side);
-      console.log("before calling potential alph board is " + (board.getSpaces()));
-      potentialAlpha = -this.search(board, otherside, depth + 1, -beta, -alpha);
-      console.log("Bot.search: potentialAlpha");
-      this.undoMove(board, move);
-      console.log("Bot.search: undoMove, board is now " + (board.getSpaces()));
-      if (beta <= alpha) {
-        break;
-      }
-      if (potentialAlpha > alpha) {
-        alpha = potentialAlpha;
-        if (depth === 0) {
-          bestMove = move;
+    moves = this.generateMoves(board);
+    boardSpaces = board.getSpaces();
+    boardCopy = new Board();
+    boardCopy.setSpaces(boardSpaces);
+    if (side === 'O') {
+      for (_i = 0, _len = moves.length; _i < _len; _i++) {
+        move = moves[_i];
+        boardCopy.setSpace(move, side);
+        score = this.search(boardCopy, otherside, depth + 1, beta, alpha);
+        if (score > alpha) {
+          alpha = score;
+        }
+        if (alpha >= beta) {
+          return alpha;
         }
       }
-    }
-    if (depth !== 0) {
       return alpha;
-    } else {
-      return bestMove;
+    }
+    if (side === 'X') {
+      for (_j = 0, _len1 = moves.length; _j < _len1; _j++) {
+        move = moves[_j];
+        boardCopy.setSpace(move, side);
+        score = this.search(boardCopy, otherside, depth + 1, beta, alpha);
+        if (score < beta) {
+          beta = score;
+        }
+        if (alpha >= beta) {
+          return beta;
+        }
+      }
     }
   };
 

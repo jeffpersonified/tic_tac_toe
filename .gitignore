@@ -1,3 +1,4 @@
 *.png
 *.ico
 .DS_Store
+coffee/*.js

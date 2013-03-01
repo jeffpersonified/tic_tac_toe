@@ -5,8 +5,6 @@ Board = (function() {
 
   function Board() {
     this.spaces = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-    console.log("created a new board!");
-    $('#output').text(this.spaces);
   }
 
   Board.prototype.reset = function() {

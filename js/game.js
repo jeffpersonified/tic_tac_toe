@@ -7,6 +7,8 @@ Game = (function() {
   function Game() {
     this.makeMove = __bind(this.makeMove, this);
     this.board = new Board();
+    console.log("created a new Game!");
+    $('#output').text(this.board.getSpaces());
   }
 
   Game.prototype["new"] = function() {

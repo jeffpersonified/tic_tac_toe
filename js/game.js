@@ -7,7 +7,6 @@ Game = (function() {
   function Game() {
     this.makeMove = __bind(this.makeMove, this);
     this.board = new Board();
-    console.log("created a new Game!");
     $('#output').text(this.board.getSpaces());
   }
 
@@ -20,13 +19,11 @@ Game = (function() {
   };
 
   Game.prototype.firstTurn = function() {
-    var space;
-    space = prompt("What space are you playing?");
-    return this.makeMove(space);
+    this.board.setSpaces(['X', 1, 2, 3, 'O', 5, 6, 7, 8]);
+    return this.makeMove(2);
   };
 
   Game.prototype.makeMove = function(space) {
-    alert("Move was at " + space);
     this.board.setSpace(space, this.side);
     this.moves += 1;
     return this.concludeTurn();

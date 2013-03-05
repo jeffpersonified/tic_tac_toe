@@ -5,9 +5,7 @@
 class Game
   constructor: ->
     @board = new Board()
-    console.log "created a new Game!"
     $('#output').text(@board.getSpaces())
-
 
   new: ->
     @board.reset()
@@ -17,12 +15,15 @@ class Game
     @moves = 0
 
   firstTurn: ->
-    space = prompt "What space are you playing?"
-    @makeMove space
+    # Production
+    # space = prompt "What space are you playing?"
+    # @makeMove space
+
+    # Testing
+    @board.setSpaces ['X',1,2,3,'O',5,6,7,8] # Testing – Bot should output 1 for calMove
+    @makeMove 2
 
   makeMove: (space) =>
-    # debugger
-    alert "Move was at #{space}"
     @board.setSpace(space, @side)
     @moves += 1
     @concludeTurn()
@@ -44,9 +45,7 @@ class Game
     @side = if @side is 'X' then 'O' else 'X'
     console.log "in change turn, side is now #{@side}"
     @listenForMove() if @side is 'X'
-    # only for debugging rules
-    # 
-    # @listenForMove() if @side is 'O'
+
     console.log "Game.changeTurn: bot (#{@bot}) is about to calc move"
     @makeMove(@bot.calculateMove @board) if @side is 'O'
     

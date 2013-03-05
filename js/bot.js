@@ -12,8 +12,8 @@ Bot = (function() {
 
   Bot.prototype.calculateMove = function(board) {
     var boardCopy, isBoardEmpty, move;
-    boardCopy = jQuery.extend({}, board);
     console.log("Bot.calculateMove with " + (board.getSpaces()));
+    debugger;
     isBoardEmpty = function(board) {
       var boardSpaces, space, _i, _len;
       console.log("Bot.calculateMove: board is " + (board.getSpaces()));
@@ -31,12 +31,14 @@ Bot = (function() {
     if (isBoardEmpty(board)) {
       return 4;
     }
+    boardCopy = jQuery.extend({}, board);
     console.log("about to call Bot.move");
     move = this.search(boardCopy, this.side, 0, -this.infinity, +this.infinity);
     return move;
   };
 
   Bot.prototype.search = function(board, side, depth, alpha, beta) {
+    debugger;
     var boardCopy, boardSpaces, move, moves, otherside, score, value, _i, _j, _len, _len1;
     value = this.nodeValue(board, side);
     if (value !== 0) {
@@ -59,11 +61,11 @@ Bot = (function() {
         if (score > alpha) {
           alpha = score;
         }
+        this.undoMove(boardCopy, move);
         if (alpha >= beta) {
           return alpha;
         }
       }
-      return alpha;
     }
     if (side === 'X') {
       for (_j = 0, _len1 = moves.length; _j < _len1; _j++) {
@@ -73,6 +75,7 @@ Bot = (function() {
         if (score < beta) {
           beta = score;
         }
+        this.undoMove(boardCopy, move);
         if (alpha >= beta) {
           return beta;
         }

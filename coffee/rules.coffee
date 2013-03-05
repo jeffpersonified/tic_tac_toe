@@ -9,8 +9,6 @@ checkGameOver = (board) ->
                          [1,4,7],[2,5,8],[0,4,8],[2,4,6]]
 
   for combo in winningCombinations
-    # console.log board
-    # console.log combo
     firstPlay       = combo[0]
     secondPlay      = combo[1]
     thirdPlay       = combo[2]
